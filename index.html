@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>中郷FCコンパス 完成版</title>
+<style>
+:root{--green:#2f7d70;--dark:#172133;--soft:#f4fbf8;--line:#d8e6e0;--red:#b92d2d;--blue:#2c6fd3}
+*{box-sizing:border-box} body{margin:0;background:#f7fbfa;color:var(--dark);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.55}.wrap{max-width:760px;margin:0 auto;padding:16px 14px 100px}.hero{background:linear-gradient(135deg,#e7f7ef,#fff);border:2px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 8px 24px #0000000d}.hero h1{font-size:28px;line-height:1.15;margin:0 0 6px}.hero p{margin:0;color:#58677a}.tabs{display:flex;gap:8px;margin:12px 0}.tab{flex:1;border:2px solid var(--line);background:white;border-radius:14px;padding:12px;font-weight:800}.tab.active{background:var(--green);color:white;border-color:var(--green)}.card{background:#fff;border:2px solid var(--line);border-radius:18px;padding:16px;margin-top:14px}.badge{display:inline-block;background:#eaf7f0;color:var(--green);font-weight:800;border-radius:999px;padding:3px 10px;margin-bottom:8px}h2{font-size:24px;margin:4px 0 14px}h3{font-size:18px;margin:16px 0 8px}label{display:block;margin:14px 0 6px;font-weight:800}select,input,textarea{width:100%;border:2px solid #cddbd6;border-radius:12px;padding:13px;font-size:16px;background:#fff;color:var(--dark)}textarea{min-height:120px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{width:100%;border:0;border-radius:14px;padding:14px 16px;font-size:17px;font-weight:900}.btn.green{background:var(--green);color:#fff}.btn.light{background:#edf5f2;color:var(--green);border:2px solid var(--line)}.stepper{display:flex;align-items:center;gap:10px}.stepper button{width:44px;height:44px;border-radius:12px;border:2px solid var(--line);background:#fff;font-size:24px;font-weight:900}.stepper input{text-align:center;font-weight:900}.result{border:2px dashed #abc0d4;background:#fbfdff;border-radius:18px;padding:14px;margin-top:14px}.row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #e6efeb;padding:9px 0}.row:last-child{border-bottom:0}.small{font-size:13px;color:#687282}.hide{display:none}.warn{color:var(--red);font-weight:800}.footer{position:fixed;left:0;right:0;bottom:0;background:#ffffffee;border-top:1px solid #dde8e3;padding:10px 14px}.footer .wrap2{max-width:760px;margin:0 auto;display:flex;gap:8px}.footer button{flex:1}.pill{background:#f1f6f4;border:1px solid #dce9e4;border-radius:999px;padding:5px 10px;display:inline-block;font-size:13px;margin:3px 3px 0 0}.ok{color:var(--green);font-weight:900}@media(max-width:420px){.hero h1{font-size:25px}.grid2{grid-template-columns:1fr}.wrap{padding:12px 10px 96px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <h1>中郷FCコンパス</h1>
+    <p>応援班の台数・配車交通費をスマホで確認するための簡易版です。</p>
+    <div><span class="pill">GitHub Pages対応</span><span class="pill">iPhone対応</span><span class="pill">完成版</span></div>
+  </section>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="calc">計算</button>
+    <button class="tab" data-tab="rule">ルール</button>
+  </div>
+
+  <section id="calc" class="card">
+    <span class="badge">応援班 台数計算</span>
+    <h2>配車交通費を計算</h2>
+
+    <label for="dest">行き先</label>
+    <select id="dest"></select>
+
+    <div class="grid2">
+      <div>
+        <label for="carType">車種</label>
+        <select id="carType">
+          <option value="普通車">普通車</option>
+          <option value="軽自動車">軽自動車</option>
+        </select>
+      </div>
+      <div>
+        <label for="dayType">日程</label>
+        <select id="dayType">
+          <option value="日帰り">日帰り</option>
+          <option value="宿泊">宿泊</option>
+        </select>
+      </div>
+    </div>
+
+    <label>応援班の台数</label>
+    <div class="stepper">
+      <button type="button" id="minus">−</button>
+      <input id="cars" type="number" min="0" value="1" inputmode="numeric">
+      <button type="button" id="plus">＋</button>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <label for="adult">大人の人数（メモ用）</label>
+        <input id="adult" type="number" min="0" value="0" inputmode="numeric">
+      </div>
+      <div>
+        <label for="child">子どもの人数（メモ用）</label>
+        <input id="child" type="number" min="0" value="0" inputmode="numeric">
+      </div>
+    </div>
+
+    <button class="btn green" type="button" id="calcBtn" style="margin-top:16px">計算する</button>
+
+    <div class="result" id="result">
+      <div class="row"><strong>行き先</strong><span id="rDest">—</span></div>
+      <div class="row"><strong>高速判定</strong><span id="rHighway">—</span></div>
+      <div class="row"><strong>1台あたり</strong><span id="rUnit">—</span></div>
+      <div class="row"><strong>台数</strong><span id="rCars">—</span></div>
+      <div class="row"><strong>合計</strong><span id="rTotal">—</span></div>
+      <p class="small" id="rMemo">行き先を選んで「計算する」を押してください。</p>
+    </div>
+  </section>
+
+  <section id="rule" class="card hide">
+    <span class="badge">臨時総会後の運用メモ</span>
+    <h2>計算ルール</h2>
+    <div class="row"><strong>配車交通費</strong><span>下道 1,500円／高速 2,000円</span></div>
+    <div class="row"><strong>高速基準</strong><span>片道60km超で高速</span></div>
+    <div class="row"><strong>大飯</strong><span>往復下道</span></div>
+    <div class="row"><strong>丸岡・三国</strong><span>敦賀IC〜鯖江IC、その後下道</span></div>
+    <div class="row"><strong>選手バス代</strong><span>日帰り2,500円／宿泊3,000円</span></div>
+    <p class="small">※このアプリは応援班の台数計算を目的にした簡易版です。正式な金額は育成会資料を優先してください。</p>
+  </section>
+</div>
+
+<div class="footer">
+  <div class="wrap2">
+    <button class="btn light" type="button" id="copyBtn">結果をコピー</button>
+    <button class="btn green" type="button" id="resetBtn">リセット</button>
+  </div>
+</div>
+
+<script>
+const destinations = [
+  {name:'選択してください', km:0, note:'', force:null},
+  {name:'敦賀市内・近隣会場', km:15, note:'近隣想定', force:'local'},
+  {name:'大飯方面', km:65, note:'決定事項：大飯は往復下道', force:'local'},
+  {name:'小浜方面', km:50, note:'片道60km以下想定', force:'local'},
+  {name:'若狭町方面', km:35, note:'片道60km以下想定', force:'local'},
+  {name:'越前市方面', km:55, note:'片道60km以下想定', force:'local'},
+  {name:'鯖江方面', km:70, note:'片道60km超', force:'highway'},
+  {name:'福井市方面', km:85, note:'片道60km超', force:'highway'},
+  {name:'丸岡方面', km:100, note:'敦賀IC〜鯖江IC、その後下道', force:'highway'},
+  {name:'三国方面', km:115, note:'敦賀IC〜鯖江IC、その後下道', force:'highway'},
+  {name:'長野遠征', km:300, note:'遠征扱い。詳細は別途確認', force:'highway'},
+  {name:'その他（下道）', km:0, note:'手入力・下道扱い', force:'local'},
+  {name:'その他（高速）', km:0, note:'手入力・高速扱い', force:'highway'}
+];
+const yen = n => Number(n||0).toLocaleString('ja-JP') + '円';
+const destSel = document.getElementById('dest');
+destinations.forEach((d,i)=>{ const o=document.createElement('option'); o.value=i; o.textContent=d.name; destSel.appendChild(o); });
+function current(){ return destinations[Number(destSel.value||0)] || destinations[0]; }
+function calc(){
+  const d=current();
+  const cars=Math.max(0, Number(document.getElementById('cars').value||0));
+  let highway = d.force === 'highway' || (!d.force && d.km>60);
+  let unit = highway ? 2000 : 1500;
+  if(d.name==='選択してください'){unit=0;}
+  document.getElementById('rDest').textContent=d.name;
+  document.getElementById('rHighway').textContent=d.name==='選択してください'?'—':(highway?'高速扱い':'下道扱い');
+  document.getElementById('rUnit').textContent=unit?yen(unit):'—';
+  document.getElementById('rCars').textContent=cars+'台';
+  document.getElementById('rTotal').textContent=unit?yen(unit*cars):'—';
+  document.getElementById('rMemo').textContent=d.note || '片道60km超は高速扱いです。';
+}
+document.getElementById('calcBtn').addEventListener('click', calc);
+destSel.addEventListener('change', calc);
+document.getElementById('carType').addEventListener('change', calc);
+document.getElementById('dayType').addEventListener('change', calc);
+document.getElementById('plus').addEventListener('click',()=>{cars.value=Number(cars.value||0)+1;calc();});
+document.getElementById('minus').addEventListener('click',()=>{cars.value=Math.max(0,Number(cars.value||0)-1);calc();});
+document.getElementById('cars').addEventListener('input',calc);
+document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+  document.getElementById('calc').classList.toggle('hide',btn.dataset.tab!=='calc');
+  document.getElementById('rule').classList.toggle('hide',btn.dataset.tab!=='rule');
+}));
+document.getElementById('copyBtn').addEventListener('click',async()=>{
+  calc(); const text=`中郷FCコンパス 計算結果\n行き先：${rDest.textContent}\n高速判定：${rHighway.textContent}\n1台あたり：${rUnit.textContent}\n台数：${rCars.textContent}\n合計：${rTotal.textContent}`;
+  try{ await navigator.clipboard.writeText(text); alert('結果をコピーしました'); }catch(e){ alert(text); }
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{destSel.value=0; cars.value=1; adult.value=0; child.value=0; calc();});
+calc();
+</script>
+</body>
+</html>
