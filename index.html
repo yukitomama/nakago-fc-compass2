@@ -2,150 +2,363 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>中郷FCコンパス 完成版</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f766e">
+<title>中郷FC交通費コンパス 完全版</title>
 <style>
-:root{--green:#2f7d70;--dark:#172133;--soft:#f4fbf8;--line:#d8e6e0;--red:#b92d2d;--blue:#2c6fd3}
-*{box-sizing:border-box} body{margin:0;background:#f7fbfa;color:var(--dark);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.55}.wrap{max-width:760px;margin:0 auto;padding:16px 14px 100px}.hero{background:linear-gradient(135deg,#e7f7ef,#fff);border:2px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 8px 24px #0000000d}.hero h1{font-size:28px;line-height:1.15;margin:0 0 6px}.hero p{margin:0;color:#58677a}.tabs{display:flex;gap:8px;margin:12px 0}.tab{flex:1;border:2px solid var(--line);background:white;border-radius:14px;padding:12px;font-weight:800}.tab.active{background:var(--green);color:white;border-color:var(--green)}.card{background:#fff;border:2px solid var(--line);border-radius:18px;padding:16px;margin-top:14px}.badge{display:inline-block;background:#eaf7f0;color:var(--green);font-weight:800;border-radius:999px;padding:3px 10px;margin-bottom:8px}h2{font-size:24px;margin:4px 0 14px}h3{font-size:18px;margin:16px 0 8px}label{display:block;margin:14px 0 6px;font-weight:800}select,input,textarea{width:100%;border:2px solid #cddbd6;border-radius:12px;padding:13px;font-size:16px;background:#fff;color:var(--dark)}textarea{min-height:120px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{width:100%;border:0;border-radius:14px;padding:14px 16px;font-size:17px;font-weight:900}.btn.green{background:var(--green);color:#fff}.btn.light{background:#edf5f2;color:var(--green);border:2px solid var(--line)}.stepper{display:flex;align-items:center;gap:10px}.stepper button{width:44px;height:44px;border-radius:12px;border:2px solid var(--line);background:#fff;font-size:24px;font-weight:900}.stepper input{text-align:center;font-weight:900}.result{border:2px dashed #abc0d4;background:#fbfdff;border-radius:18px;padding:14px;margin-top:14px}.row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #e6efeb;padding:9px 0}.row:last-child{border-bottom:0}.small{font-size:13px;color:#687282}.hide{display:none}.warn{color:var(--red);font-weight:800}.footer{position:fixed;left:0;right:0;bottom:0;background:#ffffffee;border-top:1px solid #dde8e3;padding:10px 14px}.footer .wrap2{max-width:760px;margin:0 auto;display:flex;gap:8px}.footer button{flex:1}.pill{background:#f1f6f4;border:1px solid #dce9e4;border-radius:999px;padding:5px 10px;display:inline-block;font-size:13px;margin:3px 3px 0 0}.ok{color:var(--green);font-weight:900}@media(max-width:420px){.hero h1{font-size:25px}.grid2{grid-template-columns:1fr}.wrap{padding:12px 10px 96px}}
+:root{--bg:#f5faf8;--card:#fff;--ink:#14211f;--muted:#667a76;--main:#0f766e;--sub:#14b8a6;--line:#dce9e6;--soft:#e7f7f4;--warn:#fff7ed;--danger:#dc2626}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif}
+.app{max-width:680px;margin:0 auto;padding:14px 14px 96px}
+.hero{background:linear-gradient(135deg,#0f766e,#115e59);color:#fff;border-radius:24px;padding:20px 18px;box-shadow:0 10px 28px #0f766e22;position:relative;overflow:hidden}
+.hero:after{content:"⚽";position:absolute;right:14px;top:8px;font-size:80px;opacity:.14}
+h1{font-size:23px;line-height:1.25;margin:0 0 8px}.hero p{margin:0;font-size:13px;line-height:1.5;opacity:.92}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:14px 0}
+.tab{border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px 2px;font-size:11px;font-weight:900;color:var(--muted)}
+.tab.active{background:var(--main);color:#fff;border-color:var(--main)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px;margin:12px 0;box-shadow:0 5px 18px #10201d0d}
+.title{font-size:17px;font-weight:900;margin:0 0 12px;display:flex;gap:8px;align-items:center}
+.label{font-size:12px;color:var(--muted);font-weight:900;margin:12px 0 6px}
+select,input,textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px;font-size:16px;color:var(--ink)}
+input[type=number]{text-align:right}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stepper{display:grid;grid-template-columns:52px 1fr 52px;gap:8px;align-items:center}
+.btn{border:0;border-radius:14px;padding:13px 12px;font-size:15px;font-weight:900;background:var(--main);color:#fff}
+.btn.secondary{background:#e8f4f1;color:var(--main)}.btn.gray{background:#eef2f1;color:#344440}.btn.danger{background:#fee2e2;color:var(--danger)}.btn.line{background:#06c755}
+.num{background:#f8fbfa;border:1px solid var(--line);border-radius:14px;text-align:center;font-size:24px;font-weight:900;padding:9px}
+.check{display:flex;gap:9px;align-items:center;margin-top:10px}.check input{width:auto;transform:scale(1.3)}.check span{font-size:14px;font-weight:900}
+.result{background:linear-gradient(180deg,#ecfffb,#fff);border:2px solid #b9eee6}
+.big{font-size:38px;font-weight:1000;color:var(--main);text-align:right;margin:4px 0}
+.pill{display:inline-block;background:var(--soft);color:var(--main);border-radius:999px;padding:5px 9px;font-size:11px;font-weight:900;margin-left:auto}
+.sumrow{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.sumrow:last-child{border-bottom:0}.sumrow b{font-size:16px;text-align:right}.mini{font-size:12px;color:var(--muted);line-height:1.55}
+.hidden{display:none!important}.textarea{min-height:220px;white-space:pre-wrap;line-height:1.55;font-size:14px;background:#fbfefd;border:1px solid var(--line);border-radius:16px;padding:13px}
+.listitem{border:1px solid var(--line);border-radius:16px;padding:12px;margin:8px 0;background:#fff}.listitem h3{font-size:14px;margin:0 0 6px}.listitem p{font-size:12px;color:var(--muted);margin:0;line-height:1.5}
+.warn{background:var(--warn);border-color:#fed7aa}.note{background:#f0fdfa;border:1px solid #99f6e4;border-radius:16px;padding:12px;font-size:12px;color:#155e58;line-height:1.55}
+table{width:100%;border-collapse:collapse;font-size:12px}th,td{border-bottom:1px solid #edf2f1;padding:8px 4px;text-align:left}th{color:var(--muted)}.right{text-align:right}
+.dataGrid{display:grid;grid-template-columns:1.25fr .65fr 1fr;gap:6px;align-items:center;font-size:12px}.dataGrid.header{font-weight:900;color:var(--muted);margin-top:8px}.dataGrid input{font-size:13px;padding:9px;border-radius:10px}.dataRow{margin-top:6px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 10px;font-size:12px;font-weight:900;color:var(--main)}.chip.on{background:var(--main);color:white}
+.payrow{display:grid;grid-template-columns:1.2fr .85fr .75fr 42px;gap:6px;align-items:center;margin:7px 0}.payrow input,.payrow select{padding:10px;font-size:14px;border-radius:12px}
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#fbfefd;border:1px solid var(--line);border-radius:16px;padding:12px}.stat .k{font-size:12px;color:var(--muted);font-weight:900}.stat .v{font-size:21px;font-weight:1000;color:var(--main);margin-top:4px}
+.footer{position:fixed;bottom:0;left:0;right:0;background:#f5faf8ee;backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:9px 14px max(9px,env(safe-area-inset-bottom))}
+.footer .inner{max-width:680px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.toast{position:fixed;left:50%;bottom:82px;transform:translateX(-50%);background:#10201d;color:#fff;border-radius:999px;padding:10px 14px;font-size:13px;opacity:0;pointer-events:none;transition:.25s;z-index:5}.toast.show{opacity:1}
+@media(max-width:440px){.tabs{grid-template-columns:repeat(5,1fr)}.big{font-size:32px}.tab{font-size:10px}.payrow{grid-template-columns:1fr .8fr .65fr 38px}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <section class="hero">
-    <h1>中郷FCコンパス</h1>
-    <p>応援班の台数・配車交通費をスマホで確認するための簡易版です。</p>
-    <div><span class="pill">GitHub Pages対応</span><span class="pill">iPhone対応</span><span class="pill">完成版</span></div>
-  </section>
+<div class="app">
+<section class="hero">
+  <h1>中郷FC交通費コンパス<br>完全版</h1>
+  <p>35会場・検索・お気に入り・全体LINE・会計用・名前入り支払一覧・月別履歴・年間レポート入り。</p>
+</section>
 
-  <div class="tabs">
-    <button class="tab active" data-tab="calc">計算</button>
-    <button class="tab" data-tab="rule">ルール</button>
-  </div>
+<div class="tabs">
+  <button class="tab active" data-tab="calc">計算</button>
+  <button class="tab" data-tab="share">LINE</button>
+  <button class="tab" data-tab="payees">支払</button>
+  <button class="tab" data-tab="report">集計</button>
+  <button class="tab" data-tab="settings">設定</button>
+</div>
 
-  <section id="calc" class="card">
-    <span class="badge">応援班 台数計算</span>
-    <h2>配車交通費を計算</h2>
-
-    <label for="dest">行き先</label>
+<section id="calc" class="pane">
+  <div class="card">
+    <h2 class="title">🚗 応援車交通費</h2>
+    <div class="row">
+      <div><div class="label">試合日</div><input id="gameDate" type="date"></div>
+      <div><div class="label">カテゴリー</div><select id="category"><option>U12</option><option>U11</option><option>U10</option><option>U9</option><option>U8</option><option>全学年</option><option>その他</option></select></div>
+    </div>
+    <div class="label">会場検索</div>
+    <input id="searchVenue" placeholder="例：春江、三国、武生、福知山">
+    <div class="chips" id="favoriteChips"></div>
+    <div class="label">会場</div>
     <select id="dest"></select>
 
-    <div class="grid2">
-      <div>
-        <label for="carType">車種</label>
-        <select id="carType">
-          <option value="普通車">普通車</option>
-          <option value="軽自動車">軽自動車</option>
-        </select>
-      </div>
-      <div>
-        <label for="dayType">日程</label>
-        <select id="dayType">
-          <option value="日帰り">日帰り</option>
-          <option value="宿泊">宿泊</option>
-        </select>
-      </div>
+    <div class="row">
+      <div><div class="label">普通車</div><div class="stepper"><button class="btn secondary" onclick="step('normal',-1)">−</button><div class="num" id="normalView">0</div><button class="btn secondary" onclick="step('normal',1)">＋</button></div></div>
+      <div><div class="label">軽自動車</div><div class="stepper"><button class="btn secondary" onclick="step('kei',-1)">−</button><div class="num" id="keiView">0</div><button class="btn secondary" onclick="step('kei',1)">＋</button></div></div>
     </div>
 
-    <label>応援班の台数</label>
-    <div class="stepper">
-      <button type="button" id="minus">−</button>
-      <input id="cars" type="number" min="0" value="1" inputmode="numeric">
-      <button type="button" id="plus">＋</button>
-    </div>
+    <div class="label">メモ</div>
+    <input id="memo" placeholder="例：監督同乗、高速なし、領収書確認など">
 
-    <div class="grid2">
-      <div>
-        <label for="adult">大人の人数（メモ用）</label>
-        <input id="adult" type="number" min="0" value="0" inputmode="numeric">
-      </div>
-      <div>
-        <label for="child">子どもの人数（メモ用）</label>
-        <input id="child" type="number" min="0" value="0" inputmode="numeric">
-      </div>
-    </div>
-
-    <button class="btn green" type="button" id="calcBtn" style="margin-top:16px">計算する</button>
-
-    <div class="result" id="result">
-      <div class="row"><strong>行き先</strong><span id="rDest">—</span></div>
-      <div class="row"><strong>高速判定</strong><span id="rHighway">—</span></div>
-      <div class="row"><strong>1台あたり</strong><span id="rUnit">—</span></div>
-      <div class="row"><strong>台数</strong><span id="rCars">—</span></div>
-      <div class="row"><strong>合計</strong><span id="rTotal">—</span></div>
-      <p class="small" id="rMemo">行き先を選んで「計算する」を押してください。</p>
-    </div>
-  </section>
-
-  <section id="rule" class="card hide">
-    <span class="badge">臨時総会後の運用メモ</span>
-    <h2>計算ルール</h2>
-    <div class="row"><strong>配車交通費</strong><span>下道 1,500円／高速 2,000円</span></div>
-    <div class="row"><strong>高速基準</strong><span>片道60km超で高速</span></div>
-    <div class="row"><strong>大飯</strong><span>往復下道</span></div>
-    <div class="row"><strong>丸岡・三国</strong><span>敦賀IC〜鯖江IC、その後下道</span></div>
-    <div class="row"><strong>選手バス代</strong><span>日帰り2,500円／宿泊3,000円</span></div>
-    <p class="small">※このアプリは応援班の台数計算を目的にした簡易版です。正式な金額は育成会資料を優先してください。</p>
-  </section>
-</div>
-
-<div class="footer">
-  <div class="wrap2">
-    <button class="btn light" type="button" id="copyBtn">結果をコピー</button>
-    <button class="btn green" type="button" id="resetBtn">リセット</button>
+    <div class="check"><input type="checkbox" id="roundTrip" checked><span>往復で計算する</span></div>
+    <div class="check"><input type="checkbox" id="useToll" checked><span>高速代も含める</span></div>
+    <div class="check"><input type="checkbox" id="paid"><span>支払い済みにする</span></div>
   </div>
+
+  <div class="card result">
+    <h2 class="title">💰 計算結果 <span class="pill" id="carCount">0台</span></h2>
+    <div class="label">支払合計</div>
+    <div class="big" id="total">0円</div>
+    <div id="breakdown"></div>
+    <button class="btn" style="width:100%;margin-top:12px" onclick="saveHistory()">この内容を履歴に保存</button>
+    <button class="btn line" style="width:100%;margin-top:8px" onclick="copyText('lineText')">全体LINE用をコピー</button>
+  </div>
+</section>
+
+<section id="share" class="pane hidden">
+  <div class="card">
+    <h2 class="title">📢 全体LINE用</h2>
+    <div class="textarea" id="lineText"></div>
+    <button class="btn line" style="width:100%;margin-top:10px" onclick="copyText('lineText')">全体LINE用をコピー</button>
+  </div>
+  <div class="card">
+    <h2 class="title">🧾 会計さん用</h2>
+    <div class="textarea" id="accountingText"></div>
+    <button class="btn" style="width:100%;margin-top:10px" onclick="copyText('accountingText')">会計さん用をコピー</button>
+  </div>
+</section>
+
+<section id="payees" class="pane hidden">
+  <div class="card">
+    <h2 class="title">👥 名前入り支払一覧</h2>
+    <p class="mini">名前を入れて車種を選ぶと、会計さん用の支払チェック表が作れるよ。</p>
+    <div id="payeeRows"></div>
+    <button class="btn secondary" style="width:100%;margin-top:10px" onclick="addPayee()">支払先を追加</button>
+  </div>
+  <div class="card">
+    <h2 class="title">📋 支払チェック表</h2>
+    <div class="textarea" id="payeeText"></div>
+    <button class="btn" style="width:100%;margin-top:10px" onclick="copyText('payeeText')">支払一覧をコピー</button>
+  </div>
+</section>
+
+<section id="report" class="pane hidden">
+  <div class="card">
+    <h2 class="title">📚 保存履歴・月別集計</h2>
+    <div class="statgrid" id="monthStats"></div>
+    <div id="historyList"></div>
+    <button class="btn danger" style="width:100%;margin-top:10px" onclick="clearHistory()">履歴を全部消す</button>
+  </div>
+  <div class="card">
+    <h2 class="title">📊 年間交通費レポート</h2>
+    <div class="textarea" id="annualReport"></div>
+    <button class="btn" style="width:100%;margin-top:10px" onclick="copyText('annualReport')">年間レポートをコピー</button>
+  </div>
+</section>
+
+<section id="settings" class="pane hidden">
+  <div class="card">
+    <h2 class="title">⚙️ 共通設定</h2>
+    <div class="row">
+      <div><div class="label">ガソリン単価 円/L</div><input id="gasPrice" type="number"></div>
+      <div><div class="label">燃費 km/L</div><input id="fuelKmL" type="number" step="0.1"></div>
+    </div>
+    <div class="row">
+      <div><div class="label">ガソリン代丸め</div><select id="roundMode"><option value="100">100円単位</option><option value="50">50円単位</option><option value="10">10円単位</option><option value="1">1円単位</option></select></div>
+      <div><div class="label">丸め方</div><select id="roundType"><option value="nearest">四捨五入</option><option value="ceil">切り上げ</option><option value="floor">切り捨て</option></select></div>
+    </div>
+    <button class="btn" style="width:100%;margin-top:12px" onclick="saveSettings()">設定を保存</button>
+  </div>
+
+  <div class="card">
+    <h2 class="title">⭐ お気に入り会場</h2>
+    <p class="mini">検索なしですぐ選びたい会場名を、カンマ区切りで入れてね。</p>
+    <textarea id="favoriteInput" style="min-height:90px"></textarea>
+    <button class="btn" style="width:100%;margin-top:10px" onclick="saveFavorites()">お気に入りを保存</button>
+  </div>
+
+  <div class="card">
+    <h2 class="title">🛣 ETC登録</h2>
+    <table>
+      <tr><th>区間</th><th class="right">普通</th><th class="right">軽</th></tr>
+      <tr><td>敦賀IC ⇔ 武生IC</td><td class="right">1,520円</td><td class="right">1,260円</td></tr>
+      <tr><td>敦賀IC ⇔ 鯖江IC</td><td class="right">1,720円</td><td class="right">1,420円</td></tr>
+      <tr><td>若狭美浜IC ⇔ 福知山IC</td><td class="right">3,840円</td><td class="right">3,120円</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2 class="title">🏟 登録会場一覧</h2>
+    <table id="venueTable"></table>
+  </div>
+
+  <div class="card">
+    <h2 class="title">📱 ホーム画面に追加</h2>
+    <div class="note">Safariで開く → 共有ボタン「□↑」→「ホーム画面に追加」。名前は「中郷FC交通費」がおすすめ。</div>
+  </div>
+</section>
 </div>
+
+<div class="footer"><div class="inner"><button class="btn gray" onclick="window.scrollTo({top:0,behavior:'smooth'})">上へ</button><button class="btn" onclick="copyText('lineText')">LINEコピー</button></div></div>
+<div class="toast" id="toast">コピーしました</div>
 
 <script>
-const destinations = [
-  {name:'選択してください', km:0, note:'', force:null},
-  {name:'敦賀市内・近隣会場', km:15, note:'近隣想定', force:'local'},
-  {name:'大飯方面', km:65, note:'決定事項：大飯は往復下道', force:'local'},
-  {name:'小浜方面', km:50, note:'片道60km以下想定', force:'local'},
-  {name:'若狭町方面', km:35, note:'片道60km以下想定', force:'local'},
-  {name:'越前市方面', km:55, note:'片道60km以下想定', force:'local'},
-  {name:'鯖江方面', km:70, note:'片道60km超', force:'highway'},
-  {name:'福井市方面', km:85, note:'片道60km超', force:'highway'},
-  {name:'丸岡方面', km:100, note:'敦賀IC〜鯖江IC、その後下道', force:'highway'},
-  {name:'三国方面', km:115, note:'敦賀IC〜鯖江IC、その後下道', force:'highway'},
-  {name:'長野遠征', km:300, note:'遠征扱い。詳細は別途確認', force:'highway'},
-  {name:'その他（下道）', km:0, note:'手入力・下道扱い', force:'local'},
-  {name:'その他（高速）', km:0, note:'手入力・高速扱い', force:'highway'}
-];
-const yen = n => Number(n||0).toLocaleString('ja-JP') + '円';
-const destSel = document.getElementById('dest');
-destinations.forEach((d,i)=>{ const o=document.createElement('option'); o.value=i; o.textContent=d.name; destSel.appendChild(o); });
-function current(){ return destinations[Number(destSel.value||0)] || destinations[0]; }
-function calc(){
-  const d=current();
-  const cars=Math.max(0, Number(document.getElementById('cars').value||0));
-  let highway = d.force === 'highway' || (!d.force && d.km>60);
-  let unit = highway ? 2000 : 1500;
-  if(d.name==='選択してください'){unit=0;}
-  document.getElementById('rDest').textContent=d.name;
-  document.getElementById('rHighway').textContent=d.name==='選択してください'?'—':(highway?'高速扱い':'下道扱い');
-  document.getElementById('rUnit').textContent=unit?yen(unit):'—';
-  document.getElementById('rCars').textContent=cars+'台';
-  document.getElementById('rTotal').textContent=unit?yen(unit*cars):'—';
-  document.getElementById('rMemo').textContent=d.note || '片道60km超は高速扱いです。';
+const KEY='nakago_fc_compass_super_final_v1';
+const ETC = {
+  none: {name:'一般道のみ', normal:0, kei:0},
+  tsuruga_takefu: {name:'敦賀IC ⇔ 武生IC', normal:1520, kei:1260},
+  tsuruga_sabae: {name:'敦賀IC ⇔ 鯖江IC', normal:1720, kei:1420},
+  mihama_fukuchiyama: {name:'若狭美浜IC ⇔ 福知山IC', normal:3840, kei:3120},
+  fukui_north: {name:'嶺北方面 ETC登録', normal:2400, kei:1960}
+};
+const DEFAULT_VENUES = [{"name": "おおいプレーパーク", "area": "福井県大飯郡おおい町", "one": 53, "route": "none", "note": "大飯方面：往復下道"}, {"name": "小浜市総合運動場多目的グラウンド", "area": "福井県小浜市", "one": 48, "route": "none", "note": ""}, {"name": "小浜市民体育館", "area": "福井県小浜市", "one": 44, "route": "none", "note": ""}, {"name": "瓜生小学校", "area": "福井県三方上中郡若狭町", "one": 32, "route": "none", "note": ""}, {"name": "鳥羽小学校", "area": "福井県三方上中郡若狭町", "one": 30, "route": "none", "note": ""}, {"name": "あわら市農業者トレーニングセンター", "area": "福井県あわら市", "one": 89, "route": "tsuruga_sabae", "note": ""}, {"name": "トリムパークかなづ", "area": "福井県あわら市", "one": 86, "route": "tsuruga_sabae", "note": ""}, {"name": "ジオアリーナ", "area": "福井県坂井市", "one": 87, "route": "fukui_north", "note": ""}, {"name": "まるおかスポーツランド", "area": "福井県坂井市丸岡町", "one": 74, "route": "tsuruga_sabae", "note": "敦賀IC〜鯖江ICのみ高速"}, {"name": "長畝小学校", "area": "福井県坂井市丸岡町", "one": 72, "route": "tsuruga_sabae", "note": "敦賀IC〜鯖江ICのみ高速"}, {"name": "福井市運動公園", "area": "福井県福井市", "one": 60.5, "route": "tsuruga_sabae", "note": ""}, {"name": "福井市県営体育館", "area": "福井県福井市", "one": 60, "route": "tsuruga_sabae", "note": ""}, {"name": "福井市フットボールセンター", "area": "福井県福井市", "one": 62, "route": "tsuruga_sabae", "note": ""}, {"name": "藤岡グラウンド", "area": "福井県福井市", "one": 62, "route": "fukui_north", "note": ""}, {"name": "福井市スポーツ公園", "area": "福井県福井市", "one": 62, "route": "tsuruga_sabae", "note": ""}, {"name": "真名川憩いの島", "area": "福井県大野市", "one": 92, "route": "fukui_north", "note": ""}, {"name": "長浜市立神照小学校", "area": "滋賀県長浜市", "one": 39, "route": "none", "note": ""}, {"name": "長浜市立高月小学校", "area": "滋賀県長浜市", "one": 29, "route": "none", "note": ""}, {"name": "マキノ林間スポーツセンター", "area": "滋賀県高島市", "one": 25, "route": "none", "note": ""}, {"name": "三段池多目的グラウンド", "area": "京都府福知山市", "one": 110, "route": "mihama_fukuchiyama", "note": "若狭美浜IC〜福知山IC"}, {"name": "S-LAB（エスラボ）", "area": "京都府福知山市", "one": 110, "route": "mihama_fukuchiyama", "note": "若狭美浜IC〜福知山IC"}, {"name": "今津総合運動公園", "area": "滋賀県高島市今津町", "one": 32, "route": "none", "note": ""}, {"name": "鯖江市丸山公園多目的グラウンド", "area": "福井県鯖江市", "one": 50, "route": "tsuruga_takefu", "note": "敦賀IC〜武生IC"}, {"name": "鯖江市吉川小学校", "area": "福井県鯖江市", "one": 50, "route": "tsuruga_takefu", "note": "敦賀IC〜武生IC"}, {"name": "鯖江市神明健康スポーツセンター", "area": "福井県鯖江市", "one": 49, "route": "tsuruga_takefu", "note": "敦賀IC〜武生IC"}, {"name": "鯖江市神明小学校", "area": "福井県鯖江市", "one": 48, "route": "tsuruga_takefu", "note": "敦賀IC〜武生IC"}, {"name": "武生特殊鋼材ドリームサッカー場", "area": "福井県越前市", "one": 43, "route": "tsuruga_takefu", "note": "敦賀IC〜武生IC"}, {"name": "丹南総合公園 多目的グラウンド", "area": "福井県越前市", "one": 46, "route": "tsuruga_takefu", "note": "敦賀IC〜武生IC"}, {"name": "ホノケグラウンド", "area": "福井県南越前町", "one": 31, "route": "none", "note": "オール下道・ガソリン代のみ"}, {"name": "南越前町立 湯尾小学校", "area": "福井県南条郡南越前町", "one": 28, "route": "none", "note": ""}, {"name": "リトリートたくら", "area": "福井県南条郡南越前町", "one": 35, "route": "none", "note": ""}, {"name": "若狭町立三方小学校", "area": "福井県三方上中郡若狭町", "one": 21, "route": "none", "note": ""}, {"name": "福井県立若狭高等学校 海洋キャンパス", "area": "福井県小浜市", "one": 40, "route": "none", "note": ""}, {"name": "三国運動公園 サッカー場", "area": "福井県坂井市三国町", "one": 93, "route": "tsuruga_sabae", "note": "敦賀IC〜鯖江ICのみ高速"}, {"name": "坂井市立春江西小学校", "area": "福井県坂井市", "one": 77, "route": "tsuruga_sabae", "note": "敦賀IC〜鯖江IC"}];
+const defaults={gasPrice:180,fuelKmL:10,roundMode:'100',roundType:'nearest',normal:0,kei:0,roundTrip:true,useToll:true,paid:false,category:'U12',memo:'',favorites:['三国','春江','武生','三段池','神照'],venues:DEFAULT_VENUES,history:[],payees:[]};
+let state=load(), filtered=[];
+
+function clone(o){return JSON.parse(JSON.stringify(o))}
+function load(){try{const saved=JSON.parse(localStorage.getItem(KEY)||'{}');return {...clone(defaults),...saved,venues:(saved.venues&&saved.venues.length)?saved.venues:clone(DEFAULT_VENUES)}}catch(e){return clone(defaults)}}
+function persist(){localStorage.setItem(KEY,JSON.stringify(state))}
+function yen(n){return Math.round(n).toLocaleString('ja-JP')+'円'}
+function roundMoney(n){let m=+state.roundMode||1;if(state.roundType==='ceil')return Math.ceil(n/m)*m;if(state.roundType==='floor')return Math.floor(n/m)*m;return Math.round(n/m)*m}
+function currentDest(){return filtered[+dest.value]||filtered[0]||state.venues[0]}
+function routeInfo(v){let base=ETC[v.route]||ETC.none; return {...base, normal:v.tollN ?? base.normal, kei:v.tollK ?? base.kei}}
+function factor(){return roundTrip.checked?1:.5}
+function dateLabel(){return gameDate.value ? gameDate.value.replaceAll('-','/') : '日付未入力'}
+function calcData(){
+  const v=currentDest(), r=routeInfo(v), f=factor(), km=(v.one*2)*f;
+  const gasPer=roundMoney(km/state.fuelKmL*state.gasPrice);
+  const tollN=useToll.checked?Math.round(r.normal*f):0, tollK=useToll.checked?Math.round(r.kei*f):0;
+  const normalPer=gasPer+tollN, keiPer=gasPer+tollK, total=normalPer*state.normal+keiPer*state.kei;
+  return {v,r,km,gasPer,tollN,tollK,normalPer,keiPer,total,count:state.normal+state.kei};
 }
-document.getElementById('calcBtn').addEventListener('click', calc);
-destSel.addEventListener('change', calc);
-document.getElementById('carType').addEventListener('change', calc);
-document.getElementById('dayType').addEventListener('change', calc);
-document.getElementById('plus').addEventListener('click',()=>{cars.value=Number(cars.value||0)+1;calc();});
-document.getElementById('minus').addEventListener('click',()=>{cars.value=Math.max(0,Number(cars.value||0)-1);calc();});
-document.getElementById('cars').addEventListener('input',calc);
-document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{
-  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
-  document.getElementById('calc').classList.toggle('hide',btn.dataset.tab!=='calc');
-  document.getElementById('rule').classList.toggle('hide',btn.dataset.tab!=='rule');
-}));
-document.getElementById('copyBtn').addEventListener('click',async()=>{
-  calc(); const text=`中郷FCコンパス 計算結果\n行き先：${rDest.textContent}\n高速判定：${rHighway.textContent}\n1台あたり：${rUnit.textContent}\n台数：${rCars.textContent}\n合計：${rTotal.textContent}`;
-  try{ await navigator.clipboard.writeText(text); alert('結果をコピーしました'); }catch(e){ alert(text); }
-});
-document.getElementById('resetBtn').addEventListener('click',()=>{destSel.value=0; cars.value=1; adult.value=0; child.value=0; calc();});
-calc();
+function calc(){
+  state.roundTrip=roundTrip.checked; state.useToll=useToll.checked; state.paid=paid.checked; state.memo=memo.value; state.category=category.value;
+  const x=calcData();
+  normalView.textContent=state.normal; keiView.textContent=state.kei; carCount.textContent=x.count+'台';
+  total.textContent=yen(x.total);
+  breakdown.innerHTML=`<div class="sumrow"><span>会場</span><b>${x.v.name}</b></div>
+  <div class="sumrow"><span>普通車</span><b>${state.normal}台 × ${yen(x.normalPer)}</b></div>
+  <div class="sumrow"><span>軽自動車</span><b>${state.kei}台 × ${yen(x.keiPer)}</b></div>
+  <div class="sumrow"><span>ガソリン代/台</span><b>${yen(x.gasPer)}</b></div>
+  <div class="sumrow"><span>ETC/台</span><b>普通 ${yen(x.tollN)} ／ 軽 ${yen(x.tollK)}</b></div>
+  <div class="sumrow"><span>距離</span><b>${x.km}km ${state.roundTrip?'往復':'片道'}</b></div>
+  <div class="sumrow"><span>ルート</span><b>${x.r.name}</b></div>`;
+  makeTexts(x); renderPayees(); persist();
+}
+function makeTexts(x){
+  const extra=state.memo?`\nメモ：${state.memo}`:'';
+  lineText.textContent=`📢 応援車交通費のお知らせ
+
+日付：${dateLabel()}
+カテゴリー：${state.category}
+会場：${x.v.name}
+
+普通車：${state.normal}台
+軽自動車：${state.kei}台
+
+【1台あたり】
+普通車　${yen(x.normalPer)}
+軽自動車　${yen(x.keiPer)}
+
+【支払合計】
+${yen(x.total)}
+
+【内訳】
+距離：${x.km}km（${state.roundTrip?'往復':'片道'}）
+ガソリン代：${yen(x.gasPer)}／台
+ETC：${x.r.name}
+普通車　${yen(x.tollN)}
+軽自動車　${yen(x.tollK)}${extra}
+
+よろしくお願いします🙇`;
+  accountingText.textContent=`【交通費支払一覧】
+
+日付：${dateLabel()}
+カテゴリー：${state.category}
+会場：${x.v.name}
+
+普通車
+${state.normal}台 × ${yen(x.normalPer)}＝${yen(state.normal*x.normalPer)}
+
+軽自動車
+${state.kei}台 × ${yen(x.keiPer)}＝${yen(state.kei*x.keiPer)}
+
+──────────
+支払合計　${yen(x.total)}${extra}
+
+支払い状況：${state.paid?'支払い済':'未払い'}`;
+  makePayeeText(x);
+}
+function makePayeeText(x){
+  let totalPayee=0;
+  let lines=state.payees.map(p=>{
+    let amount=p.type==='kei'?x.keiPer:x.normalPer; totalPayee+=amount;
+    return `□ ${p.name||'名前未入力'}　${p.type==='kei'?'軽自動車':'普通車'}　${yen(amount)}`;
+  });
+  payeeText.textContent=`【名前入り支払チェック表】
+
+日付：${dateLabel()}
+会場：${x.v.name}
+
+${lines.join('\n') || '□ 名前を追加してください'}
+
+──────────
+支払合計　${yen(totalPayee)}`;
+}
+function step(k,v){state[k]=Math.max(0,(state[k]||0)+v);calc()}
+function applyFilter(){
+  const q=searchVenue.value.trim();
+  filtered = q ? state.venues.filter(v=>(v.name+v.area+(v.note||'')).includes(q)) : state.venues.slice();
+  dest.innerHTML='';
+  filtered.forEach((v,i)=>{let o=document.createElement('option');o.value=i;o.textContent=`${v.name}（${v.area}）`;dest.appendChild(o)});
+  calc();
+}
+function renderFavorites(){
+  favoriteChips.innerHTML=state.favorites.map(f=>`<button class="chip" onclick="searchVenue.value='${f}';applyFilter()">${f}</button>`).join('');
+}
+function saveFavorites(){state.favorites=favoriteInput.value.split(/[、,\n]/).map(s=>s.trim()).filter(Boolean);persist();renderFavorites();toast('お気に入りを保存したよ')}
+function saveSettings(){state.gasPrice=+gasPrice.value||0;state.fuelKmL=+fuelKmL.value||1;state.roundMode=roundMode.value;state.roundType=roundType.value;toast('設定を保存したよ');calc()}
+function addPayee(){state.payees.push({name:'',type:'normal'});renderPayees();persist()}
+function renderPayees(){
+  payeeRows.innerHTML='';
+  state.payees.forEach((p,i)=>payeeRows.insertAdjacentHTML('beforeend',`<div class="payrow">
+    <input placeholder="名前" value="${(p.name||'').replaceAll('"','&quot;')}" oninput="state.payees[${i}].name=this.value;calc()">
+    <select onchange="state.payees[${i}].type=this.value;calc()"><option value="normal" ${p.type==='normal'?'selected':''}>普通車</option><option value="kei" ${p.type==='kei'?'selected':''}>軽自動車</option></select>
+    <span class="mini">${p.type==='kei'?'軽':'普通'}</span>
+    <button class="btn danger" onclick="state.payees.splice(${i},1);calc()">×</button>
+  </div>`));
+  makePayeeText(calcData());
+}
+function saveHistory(){
+  const x=calcData();
+  state.history.unshift({date:new Date().toLocaleString('ja-JP'),gameDate:gameDate.value,category:state.category,dest:x.v.name,area:x.v.area,route:x.r.name,normal:state.normal,kei:state.kei,total:x.total,gas:x.gasPer*(state.normal+state.kei),toll:x.tollN*state.normal+x.tollK*state.kei,paid:state.paid,memo:state.memo});
+  state.history=state.history.slice(0,200);persist();renderHistory();toast('履歴に保存したよ');
+}
+function renderHistory(){
+  const hist=state.history;
+  if(!hist.length){historyList.innerHTML='<p class="mini">まだ履歴はありません。</p>'; monthStats.innerHTML=''; annualReport.textContent='履歴を保存すると年間レポートが出ます。'; return}
+  let total=hist.reduce((s,h)=>s+h.total,0), paid=hist.filter(h=>h.paid).reduce((s,h)=>s+h.total,0), unpaid=total-paid;
+  monthStats.innerHTML=`<div class="stat"><div class="k">履歴件数</div><div class="v">${hist.length}件</div></div><div class="stat"><div class="k">支払合計</div><div class="v">${yen(total)}</div></div><div class="stat"><div class="k">支払い済</div><div class="v">${yen(paid)}</div></div><div class="stat"><div class="k">未払い</div><div class="v">${yen(unpaid)}</div></div>`;
+  historyList.innerHTML=hist.map((h,i)=>`<div class="listitem"><h3>${h.gameDate||h.date}　${h.dest}　${yen(h.total)}</h3><p>${h.category}／普通車 ${h.normal}台・軽 ${h.kei}台／${h.paid?'支払い済':'未払い'}${h.memo?'／'+h.memo:''}</p></div>`).join('');
+  makeAnnualReport();
+}
+function makeAnnualReport(){
+  const hist=state.history, total=hist.reduce((s,h)=>s+h.total,0), gas=hist.reduce((s,h)=>s+(h.gas||0),0), toll=hist.reduce((s,h)=>s+(h.toll||0),0);
+  let byArea={}, byCat={}, byMonth={};
+  hist.forEach(h=>{let pref=(h.area||'不明').split(/[県府]/)[0]; pref=pref?pref+(h.area?.includes('京都')?'府':'県'):'不明'; byArea[pref]=(byArea[pref]||0)+1; byCat[h.category]=(byCat[h.category]||0)+h.total; let m=(h.gameDate||h.date||'未入力').slice(0,7); byMonth[m]=(byMonth[m]||0)+h.total;});
+  let fmtObj=o=>Object.entries(o).map(([k,v])=>`・${k}：${typeof v==='number'&&v>500?yen(v):v+'回'}`).join('\n');
+  annualReport.textContent=`【中郷FC 年間交通費レポート】
+
+保存件数：${hist.length}件
+交通費総額：${yen(total)}
+ガソリン代合計：${yen(gas)}
+ETC合計：${yen(toll)}
+
+【方面別 回数】
+${fmtObj(byArea)}
+
+【カテゴリー別 金額】
+${fmtObj(byCat)}
+
+【月別 金額】
+${fmtObj(byMonth)}
+
+※コンパス履歴に保存した分のみ集計。`;
+}
+function clearHistory(){if(confirm('履歴を全部消しますか？')){state.history=[];persist();renderHistory();toast('消したよ')}}
+async function copyText(id){try{await navigator.clipboard.writeText(document.getElementById(id).textContent);toast('コピーしたよ')}catch(e){toast('長押しでコピーしてね')}}
+function toast(t){let el=document.getElementById('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1700)}
+function renderVenueTable(){venueTable.innerHTML='<tr><th>会場</th><th>片道</th><th>ルート</th></tr>'+state.venues.map(v=>`<tr><td>${v.name}<br><span class="mini">${v.area}</span></td><td class="right">${v.one}km</td><td>${routeInfo(v).name}</td></tr>`).join('')}
+function init(){
+  gasPrice.value=state.gasPrice; fuelKmL.value=state.fuelKmL; roundMode.value=state.roundMode; roundType.value=state.roundType;
+  roundTrip.checked=state.roundTrip; useToll.checked=state.useToll; paid.checked=state.paid; category.value=state.category||'U12'; memo.value=state.memo||'';
+  favoriteInput.value=state.favorites.join('、');
+  renderFavorites(); applyFilter(); renderPayees(); renderHistory(); renderVenueTable();
+}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.pane').forEach(p=>p.classList.add('hidden'));document.getElementById(b.dataset.tab).classList.remove('hidden');window.scrollTo(0,0);renderHistory();});
+document.addEventListener('input',e=>{if(['searchVenue'].includes(e.target.id))applyFilter(); if(['dest','roundTrip','useToll','paid','memo','category','gameDate'].includes(e.target.id))calc();});
+document.addEventListener('change',e=>{if(['dest','roundTrip','useToll','paid','memo','category','gameDate'].includes(e.target.id))calc();});
+init();
 </script>
 </body>
 </html>
